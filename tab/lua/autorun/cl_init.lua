@@ -1,4 +1,3 @@
--- Beautiful custom scoreboard tab for Garry's Mod
 local frame
 
 hook.Add("ScoreboardShow", "CustomScoreboard", function()
@@ -23,7 +22,6 @@ hook.Add("ScoreboardShow", "CustomScoreboard", function()
         serverName:DockMargin(10, 10, 10, 10)
         serverName:SetContentAlignment(5)
         
-        -- Change the size of the server name to a more acceptable size
         serverName:SetSize(200, 50)
 
         local header = vgui.Create("DPanel", frame)
@@ -88,21 +86,21 @@ hook.Add("ScoreboardShow", "CustomScoreboard", function()
             end
 
 			local avatar = vgui.Create("DPanel", pnl)
-			avatar:SetSize(66, 66) -- Increase the size to accommodate the outline
+			avatar:SetSize(66, 66)
 			avatar:Dock(LEFT)
 			avatar.Paint = function(self, w, h)
-			surface.SetDrawColor(255, 255, 255) -- Set the color of the outline
-			surface.DrawOutlinedRect(0, 0, w, h) -- Draw the outline
+			surface.SetDrawColor(255, 255, 255)
+			surface.DrawOutlinedRect(0, 0, w, h)
 
 			local x, y = self:LocalToScreen(0, 0)
 			local scrW, scrH = ScrW(), ScrH()
-			render.SetScissorRect(x, y, x + w, y + h, true) -- Clip rendering to the size of the panel
+			render.SetScissorRect(x, y, x + w, y + h, true)
 
 			avatarImage = vgui.Create("AvatarImage", avatar)
 			avatarImage:SetSize(64, 64)
 			avatarImage:SetPlayer(ply, 64)
 
-			render.SetScissorRect(0, 0, scrW, scrH, false) -- End clipping
+			render.SetScissorRect(0, 0, scrW, scrH, false)
 			end
 
             local name = vgui.Create("DLabel", pnl)
@@ -117,15 +115,14 @@ hook.Add("ScoreboardShow", "CustomScoreboard", function()
 			admin:Dock(FILL)
 			admin:SetContentAlignment(5)
 
-			-- Set the color of the rank label based on the user's rank
 			if ply:GetUserGroup() == "user" then
-				admin:SetTextColor(Color(0, 0, 255)) -- Blue for users
+				admin:SetTextColor(Color(0, 0, 255))
 			elseif ply:GetUserGroup() == "admin" then
-				admin:SetTextColor(Color(255, 255, 0)) -- Yellow for admins
+				admin:SetTextColor(Color(255, 255, 0))
 			elseif ply:GetUserGroup() == "superadmin" then
-				admin:SetTextColor(Color(255, 0, 0)) -- Red for superadmins
+				admin:SetTextColor(Color(255, 0, 0))
 			else
-				admin:SetTextColor(Color(255, 255, 255)) -- White for other ranks
+				admin:SetTextColor(Color(255, 255, 255))
 			end	
 
 			local ping = vgui.Create("DLabel", pnl)
@@ -133,7 +130,6 @@ hook.Add("ScoreboardShow", "CustomScoreboard", function()
 			ping:SetTextColor(Color(255, 255, 255))
 			ping:Dock(RIGHT)
 
-			-- Create a timer to update the ping label every second
 			timer.Create("UpdatePing" .. ply:UserID(), 0, 0, function()
 				if not IsValid(ping) then
 					timer.Remove("UpdatePing" .. ply:UserID())
